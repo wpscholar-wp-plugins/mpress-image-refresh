@@ -12,7 +12,7 @@ Show a fresh image on every page load.
 
 == Description ==
 
-The **mPress Image Refresh** plugin allows to you randomly display a new image on every page load.
+The **mPress Image Refresh** plugin allows you to randomly display a new image on every page load.
 
 = Why? =
 
