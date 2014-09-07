@@ -9,8 +9,7 @@
  * Version: 0.2
  * License: GPL3
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
- *
- * Copyright 2012 by Micah Wood - All rights reserved.
+ * Copyright 2014 by Micah Wood - All rights reserved.
  */
 
 define( 'MPRESS_IMAGE_REFRESH_VERSION', '0.2' );
