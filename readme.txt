@@ -3,7 +3,7 @@ Contributors: woodent
 Donate link: http://wpscholar.dev/donate/
 Tags: mpress, image refresh, image rotation, random image, attachments
 Requires at least: 3.2
-Tested up to: 3.4.2
+Tested up to: 4.0
 Stable tag: 0.2
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
