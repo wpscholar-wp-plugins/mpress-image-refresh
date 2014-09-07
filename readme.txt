@@ -1,7 +1,7 @@
 === mPress Image Refresh ===
 Contributors: woodent
-Donate link: http://micahwood.me/donate/
 Tags: mpress, image refresh, image rotation
+Donate link: http://wpscholar.dev/donate/
 Requires at least: 3.2
 Tested up to: 3.4.2
 Stable tag: 0.1

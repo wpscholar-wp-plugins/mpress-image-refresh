@@ -3,10 +3,10 @@
 /**
  * Plugin Name: mPress Image Refresh
  * Description: Show a fresh image on every page load.
- * Plugin URI: http://micahwood.me/wordpress-plugins/mpress-image-refresh/
+ * Plugin URI: http://wpscholar.com/wordpress-plugins/mpress-image-refresh/
  * Author: Micah Wood
- * Author URI: http://micahwood.me
  * Version: 0.1
+ * Author URI: http://wpscholar.com
  * License: GPL3
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
  *
