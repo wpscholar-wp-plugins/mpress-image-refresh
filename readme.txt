@@ -78,8 +78,17 @@ Keep in mind that any of these attributes can be combined as needed.  Example: `
 
 == Changelog ==
 
+= 0.2 =
+
+* Updated plugin 'Tested Up To' tag to WordPress version 4.0
+* Added 'attachment' shortcode attribute for users who want to specify a set of images directly from the Media Library.
+
 = 0.1 =
 
 * Initial commit
 
 == Upgrade Notice ==
+
+= 0.2 =
+
+* You can now specify a set of image IDs using the 'attachment' shortcode attribute in order to load images directly from the Media Library.
