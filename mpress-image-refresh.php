@@ -16,20 +16,40 @@ define( 'MPRESS_IMAGE_REFRESH_VERSION', '0.2' );
 
 if ( ! class_exists( 'mPress_Image_Refresh' ) ) {
 
+	/**
+	 * Class mPress_Image_Refresh
+	 */
 	class mPress_Image_Refresh {
 
+		/**
+		 * @var mPress_Image_Refresh
+		 */
 		private static $instance;
 
+		/**
+		 * Get class instance
+		 *
+		 * @return mPress_Image_Refresh
+		 */
 		public static function get_instance() {
 			return self::$instance ? self::$instance : new self();
 		}
 
+		/**
+		 * Setup plugin
+		 */
 		private function __construct() {
 			self::$instance = $this;
 			add_filter( 'widget_text', 'do_shortcode' );
 			add_shortcode( 'mpress_image_refresh', array( $this, 'shortcode' ) );
 		}
 
+		/**
+		 * Shortcode handler
+		 *
+		 * @param array $atts
+		 * @return bool|string
+		 */
 		public function shortcode( $atts ) {
 			global $post;
 			$atts = shortcode_atts( array(
@@ -47,7 +67,14 @@ if ( ! class_exists( 'mPress_Image_Refresh' ) ) {
 			return $image ? wp_get_attachment_image( $image->ID, $atts['size'], false, $image_atts ) : false;
 		}
 
-		public function get_random_attached_image( $post_id, $exclude ) {
+		/**
+		 * Get a random image attached to a specific post
+		 *
+		 * @param       $post_id
+		 * @param array $exclude
+		 * @return bool|mixed
+		 */
+		public function get_random_attached_image( $post_id, $exclude = array() ) {
 			$args = array(
 				'post_parent' => $post_id,
 				'post_mime_type' => 'image',
