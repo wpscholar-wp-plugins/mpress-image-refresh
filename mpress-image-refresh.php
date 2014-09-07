@@ -106,15 +106,16 @@ if ( ! class_exists( 'mPress_Image_Refresh' ) ) {
 		 */
 		public function get_random_attached_image( $post_id, $exclude = array() ) {
 			$args = array(
-				'post_parent' => $post_id,
+				'orderby'        => 'rand',
 				'post_mime_type' => 'image',
-				'post_type' => 'attachment',
-				'post_status' => 'inherit',
+				'post_parent'    => $post_id,
+				'post_status'    => 'inherit',
+				'post_type'      => 'attachment',
 				'posts_per_page' => 1,
-				'orderby' => 'rand',
 			);
-			if( ! empty( $exclude ) )
+			if ( ! empty( $exclude ) ) {
 				$args['post__not_in'] = $exclude;
+			}
 			$images = get_posts( $args );
 			return is_array( $images ) ? array_shift( $images ) : false;
 		}
