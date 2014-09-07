@@ -53,7 +53,6 @@ if ( ! class_exists( 'mPress_Image_Refresh' ) ) {
 		public function shortcode( $atts ) {
 			global $post;
 
-			$exclude = empty( $atts['not'] ) ? array() : explode( ',', preg_replace( '#[^0-9,]#', '', $atts['not'] ) );
 			$atts = shortcode_atts(
 				array(
 					'post_id'    => $post->ID,
@@ -65,10 +64,37 @@ if ( ! class_exists( 'mPress_Image_Refresh' ) ) {
 				$atts
 			);
 
-			$image = $this->get_random_attached_image( $atts['post_id'], $exclude );
+			if ( ! empty( $atts['attachment'] ) ) {
+				$attachment_ids = explode( ',', preg_replace( '#[^0-9,]#', '', $atts['attachment'] ) );
+				$image = $this->get_random_image( $attachment_ids );
+			} else {
+				$exclude = empty( $atts['not'] ) ? array() : explode( ',', preg_replace( '#[^0-9,]#', '', $atts['not'] ) );
+				$image = $this->get_random_attached_image( $atts['post_id'], $exclude );
+			}
+
 			$image_atts = empty( $atts['class'] ) ? array() : array( 'class' => $atts['class'] );
 
 			return $image ? wp_get_attachment_image( $image->ID, $atts['size'], false, $image_atts ) : false;
+		}
+
+		/**
+		 * Get a random image from an array of attachment ids
+		 *
+		 * @param array $attachment_ids
+		 * @return bool|mixed
+		 */
+		public function get_random_image( array $attachment_ids ) {
+			$args = array(
+				'orderby'             => 'rand',
+				'ignore_sticky_posts' => true,
+				'post__in'            => $attachment_ids,
+				'post_mime_type'      => 'image',
+				'post_status'         => 'inherit',
+				'post_type'           => 'attachment',
+				'posts_per_page'      => 1,
+			);
+			$images = get_posts( $args );
+			return is_array( $images ) ? array_shift( $images ) : false;
 		}
 
 		/**
