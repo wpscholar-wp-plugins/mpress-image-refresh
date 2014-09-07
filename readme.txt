@@ -4,7 +4,7 @@ Tags: mpress, image refresh, image rotation
 Donate link: http://wpscholar.dev/donate/
 Requires at least: 3.2
 Tested up to: 3.4.2
-Stable tag: 0.1
+Stable tag: 0.2
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 

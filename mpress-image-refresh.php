@@ -5,15 +5,15 @@
  * Description: Show a fresh image on every page load.
  * Plugin URI: http://wpscholar.com/wordpress-plugins/mpress-image-refresh/
  * Author: Micah Wood
- * Version: 0.1
  * Author URI: http://wpscholar.com
+ * Version: 0.2
  * License: GPL3
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
  *
  * Copyright 2012 by Micah Wood - All rights reserved.
  */
 
-define( 'MPRESS_IMAGE_REFRESH_VERSION', '0.1' );
+define( 'MPRESS_IMAGE_REFRESH_VERSION', '0.2' );
 
 if ( ! class_exists( 'mPress_Image_Refresh' ) ) {
 
