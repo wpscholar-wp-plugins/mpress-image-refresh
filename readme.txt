@@ -60,7 +60,7 @@ that supports a more recent version of PHP.
 
 Once the plugin is installed and activated, go to any page or post where you want to have a fresh image display on each page load.  Just above the content editing area, click on the 'Add Media' icon to bring up the media uploader. Upload one or more images and click 'Save Changes' before exiting out of the popup window. Add the `[mpress_image_refresh]` shortcode in the content area where you want your image to appear.  Save your changes and check out the results!
 
-== Advanced Usage ==
+== Frequently Asked Questions ==
 
 The `[mpress_image_refresh]` shortcode supports a few attributes to give you more control over the results:
 
