@@ -1,7 +1,7 @@
 === mPress Image Refresh ===
 Contributors: woodent
-Tags: mpress, image refresh, image rotation
 Donate link: http://wpscholar.dev/donate/
+Tags: mpress, image refresh, image rotation, random image, attachments
 Requires at least: 3.2
 Tested up to: 3.4.2
 Stable tag: 0.2
