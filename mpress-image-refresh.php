@@ -52,14 +52,18 @@ if ( ! class_exists( 'mPress_Image_Refresh' ) ) {
 		 */
 		public function shortcode( $atts ) {
 			global $post;
-			$atts = shortcode_atts( array(
-				'post_id' => $post->ID,
-				'size' => 'large',
-				'class' => '',
-				'not' => array(),
-			), $atts );
 
 			$exclude = empty( $atts['not'] ) ? array() : explode( ',', preg_replace( '#[^0-9,]#', '', $atts['not'] ) );
+			$atts = shortcode_atts(
+				array(
+					'post_id'    => $post->ID,
+					'size'       => 'large',
+					'class'      => '',
+					'not'        => array(),
+					'attachment' => array(),
+				),
+				$atts
+			);
 
 			$image = $this->get_random_attached_image( $atts['post_id'], $exclude );
 			$image_atts = empty( $atts['class'] ) ? array() : array( 'class' => $atts['class'] );
