@@ -1,10 +1,10 @@
 === mPress Image Refresh ===
 Contributors: woodent
-Donate link: http://wpscholar.dev/donate/
-Tags: mpress, image refresh, image rotation, random image, attachments
+Donate link: http://wpscholar.com/donate/
+Tags: mpress, image refresh, image rotation, random image, attachments, image with caption
 Requires at least: 3.2
-Tested up to: 4.0
-Stable tag: 0.2
+Tested up to: 4.1
+Stable tag: 0.3
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -74,9 +74,21 @@ The `[mpress_image_refresh]` shortcode supports a few attributes to give you mor
 
 * **not** - Sometimes you have an image within the page content, and as such it is automatically attached to the page or post.  You probably don't want these images to be used as one of your random images, so just pass in the ID of those images to keep those from showing up.  Example: `[mpress_image_refresh not="2310, 2319"]`
 
+* **caption** - You can pass in 'true' or 'false'.  If set to 'true', then the caption will be displayed below the image.  Example: `[mpress_image_refresh attachment="5,7,9" caption="true"]`.
+
 Keep in mind that any of these attributes can be combined as needed.  Example: `[mpress_image_refresh post_id="19" size="full" not="2310"]`.  Also, keep in mind that the shortcode can be used in text widgets.  However, you will probably want to define the **post_id** attribute when using the shortcode in a text widget.
 
+= Actions and Filters =
+
+* `mpress_image_refresh-image_html` -- Provides ability to filter the final image HTML.  The attachment post object and shortcode attributes are provided as additional parameters to the callback function.
+
 == Changelog ==
+
+= 0.3 =
+
+* Added ability to display image captions, if desired.
+* Added filter `mpress_image_refresh-image_html` to allow for HTML customizations.
+* Updated plugin 'Tested Up To' tag to WordPress version 4.1
 
 = 0.2 =
 
@@ -88,6 +100,10 @@ Keep in mind that any of these attributes can be combined as needed.  Example: `
 * Initial commit
 
 == Upgrade Notice ==
+
+= 0.3 =
+
+* You can now opt to display image captions, if available.
 
 = 0.2 =
 
