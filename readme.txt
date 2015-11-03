@@ -3,8 +3,8 @@ Contributors: woodent
 Donate link: http://wpscholar.com/donate/
 Tags: mpress, image refresh, image rotation, random image, attachments, image with caption
 Requires at least: 3.2
-Tested up to: 4.1
-Stable tag: 0.3
+Tested up to: 4.3.1
+Stable tag: 0.4
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -83,6 +83,10 @@ Keep in mind that any of these attributes can be combined as needed.  Example: `
 * `mpress_image_refresh-image_html` -- Provides ability to filter the final image HTML.  The attachment post object and shortcode attributes are provided as additional parameters to the callback function.
 
 == Changelog ==
+
+= 0.4 =
+
+* Updated plugin to be more friendly with WPEngine's WordPress hosting  environment.
 
 = 0.3 =
 

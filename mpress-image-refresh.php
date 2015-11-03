@@ -6,13 +6,13 @@
  * Plugin URI: http://wpscholar.com/wordpress-plugins/mpress-image-refresh/
  * Author: Micah Wood
  * Author URI: http://wpscholar.com
- * Version: 0.3
+ * Version: 0.4
  * License: GPL3
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
  * Copyright 2014-2015 by Micah Wood - All rights reserved.
  */
 
-define( 'MPRESS_IMAGE_REFRESH_VERSION', '0.3' );
+define( 'MPRESS_IMAGE_REFRESH_VERSION', '0.4' );
 
 if ( ! class_exists( 'mPress_Image_Refresh' ) ) {
 
@@ -96,18 +96,26 @@ if ( ! class_exists( 'mPress_Image_Refresh' ) ) {
 		 * @return bool|mixed
 		 */
 		public function get_random_image( array $attachment_ids ) {
+
+			$image = false;
+
 			$args = array(
-				'orderby'             => 'rand',
 				'ignore_sticky_posts' => true,
 				'post__in'            => $attachment_ids,
 				'post_mime_type'      => 'image',
 				'post_status'         => 'inherit',
 				'post_type'           => 'attachment',
-				'posts_per_page'      => 1,
+				'posts_per_page'      => 50,
 			);
-			$images = get_posts( $args );
 
-			return is_array( $images ) ? array_shift( $images ) : false;
+			$query = new WP_Query( $args );
+
+			if ( $query->have_posts() ) {
+				$key = array_rand( $query->posts );
+				$image = $query->posts[ $key ];
+			}
+
+			return $image;
 		}
 
 		/**
@@ -119,20 +127,29 @@ if ( ! class_exists( 'mPress_Image_Refresh' ) ) {
 		 * @return bool|mixed
 		 */
 		public function get_random_attached_image( $post_id, $exclude = array() ) {
+
+			$image = false;
+
 			$args = array(
-				'orderby'        => 'rand',
 				'post_mime_type' => 'image',
 				'post_parent'    => $post_id,
 				'post_status'    => 'inherit',
 				'post_type'      => 'attachment',
-				'posts_per_page' => 1,
+				'posts_per_page' => 50,
 			);
+
 			if ( ! empty( $exclude ) ) {
 				$args['post__not_in'] = $exclude;
 			}
-			$images = get_posts( $args );
 
-			return is_array( $images ) ? array_shift( $images ) : false;
+			$query = new WP_Query( $args );
+
+			if ( $query->have_posts() ) {
+				$key = array_rand( $query->posts );
+				$image = $query->posts[ $key ];
+			}
+
+			return $image;
 		}
 
 	}
