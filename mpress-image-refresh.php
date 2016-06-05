@@ -6,13 +6,13 @@
  * Plugin URI: http://wpscholar.com/wordpress-plugins/mpress-image-refresh/
  * Author: Micah Wood
  * Author URI: http://wpscholar.com
- * Version: 0.4
+ * Version: 1.0
  * License: GPL3
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
  * Copyright 2014-2015 by Micah Wood - All rights reserved.
  */
 
-define( 'MPRESS_IMAGE_REFRESH_VERSION', '0.4' );
+define( 'MPRESS_IMAGE_REFRESH_VERSION', '1.0' );
 
 if ( ! class_exists( 'mPress_Image_Refresh' ) ) {
 

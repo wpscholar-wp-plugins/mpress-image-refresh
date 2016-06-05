@@ -1,10 +1,10 @@
 === mPress Image Refresh ===
 Contributors: woodent
-Donate link: http://wpscholar.com/donate/
+Donate link: https://www.paypal.me/wpscholar
 Tags: mpress, image refresh, image rotation, random image, attachments, image with caption
 Requires at least: 3.2
-Tested up to: 4.3.1
-Stable tag: 0.4
+Tested up to: 4.5.2
+Stable tag: 1.0
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -84,6 +84,10 @@ Keep in mind that any of these attributes can be combined as needed.  Example: `
 
 == Changelog ==
 
+= 1.0 =
+
+* Tested in WordPress version 4.5.2
+
 = 0.4 =
 
 * Updated plugin to be more friendly with WPEngine's WordPress hosting  environment.
@@ -104,6 +108,10 @@ Keep in mind that any of these attributes can be combined as needed.  Example: `
 * Initial commit
 
 == Upgrade Notice ==
+
+= 1.0 =
+
+* Plugin updated to reflect that it works with WordPress version 4.5.2
 
 = 0.3 =
 
