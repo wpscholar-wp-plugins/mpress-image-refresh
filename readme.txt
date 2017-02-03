@@ -3,8 +3,8 @@ Contributors: woodent
 Donate link: https://www.paypal.me/wpscholar
 Tags: mpress, image refresh, image rotation, random image, attachments, image with caption
 Requires at least: 3.2
-Tested up to: 4.5.2
-Stable tag: 1.0
+Tested up to: 4.7.2
+Stable tag: 2.0
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -84,6 +84,13 @@ Keep in mind that any of these attributes can be combined as needed.  Example: `
 
 == Changelog ==
 
+= 2.0 =
+
+* Added helpful error messages for content editors when there is an issue with the shortcode implementation.
+* Updated plugin to provide a number of new filters for developers.
+* Updated plugin to make it translatable.
+* Tested in WordPress version 4.7.2
+
 = 1.0 =
 
 * Tested in WordPress version 4.5.2
@@ -109,9 +116,20 @@ Keep in mind that any of these attributes can be combined as needed.  Example: `
 
 == Upgrade Notice ==
 
+= 2.0 =
+
+* Added helpful error messages for content editors when there is an issue with the shortcode implementation.
+* Updated plugin to provide a number of new filters for developers.
+* Updated plugin to make it translatable.
+* Tested in WordPress version 4.7.2
+
 = 1.0 =
 
 * Plugin updated to reflect that it works with WordPress version 4.5.2
+
+= 0.4 =
+
+* Updated plugin to be more friendly with WPEngine's WordPress hosting environment.
 
 = 0.3 =
 

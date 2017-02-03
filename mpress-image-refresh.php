@@ -1,18 +1,17 @@
 <?php
 
-/**
+/*
  * Plugin Name: mPress Image Refresh
  * Description: Show a fresh image on every page load.
  * Plugin URI: http://wpscholar.com/wordpress-plugins/mpress-image-refresh/
  * Author: Micah Wood
  * Author URI: http://wpscholar.com
- * Version: 1.0
+ * Version: 2.0
+ * Text Domain: mpress-image-refresh
  * License: GPL3
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
- * Copyright 2014-2015 by Micah Wood - All rights reserved.
+ * Copyright 2014-2017 by Micah Wood - All rights reserved.
  */
-
-define( 'MPRESS_IMAGE_REFRESH_VERSION', '1.0' );
 
 if ( ! class_exists( 'mPress_Image_Refresh' ) ) {
 
@@ -21,27 +20,20 @@ if ( ! class_exists( 'mPress_Image_Refresh' ) ) {
 	 */
 	class mPress_Image_Refresh {
 
-		/**
-		 * @var mPress_Image_Refresh
-		 */
-		private static $instance;
+		const SHORTCODE = 'mpress_image_refresh';
 
 		/**
-		 * Get class instance
-		 *
-		 * @return mPress_Image_Refresh
+		 * Initialize the plugin.
 		 */
-		public static function get_instance() {
-			return self::$instance ? self::$instance : new self();
+		public static function initialize() {
+			load_plugin_textdomain( 'mpress-image-refresh', false, dirname( __FILE__ ) . '/languages' );
+			add_filter( 'widget_text', 'do_shortcode' );
+			add_action( 'wp_enqueue_scripts', array( __CLASS__, 'wp_enqueue_scripts' ) );
+			add_shortcode( self::SHORTCODE, array( __CLASS__, 'shortcode' ) );
 		}
 
-		/**
-		 * Setup plugin
-		 */
-		private function __construct() {
-			self::$instance = $this;
-			add_filter( 'widget_text', 'do_shortcode' );
-			add_shortcode( 'mpress_image_refresh', array( $this, 'shortcode' ) );
+		public static function wp_enqueue_scripts() {
+			wp_register_style( self::SHORTCODE, plugins_url( '/assets/mpress-image-refresh.css', __FILE__ ) );
 		}
 
 		/**
@@ -51,109 +43,200 @@ if ( ! class_exists( 'mPress_Image_Refresh' ) ) {
 		 *
 		 * @return bool|string
 		 */
-		public function shortcode( $atts ) {
-			global $post;
+		public static function shortcode( $atts ) {
+
+			$output = '';
 
 			$atts = shortcode_atts(
 				array(
-					'post_id'    => $post->ID,
-					'size'       => 'large',
-					'class'      => '',
-					'not'        => array(),
-					'attachment' => array(),
-					'caption'    => false,
+					'attachment'     => '', // Alias of 'attachment_ids'
+					'attachments'    => '', // Alias of 'attachment_ids'
+					'attachment_ids' => '',
+					'caption'        => 'false',
+					'class'          => '',
+					'exclude'        => '',
+					'not'            => '', // Alias of 'exclude'
+					'post_id'        => get_the_ID(),
+					'size'           => 'large',
 				),
-				$atts
+				$atts,
+				self::SHORTCODE
 			);
 
+			// Allow 'attachment' to be an alias for 'attachment_ids'
 			if ( ! empty( $atts['attachment'] ) ) {
-				$attachment_ids = explode( ',', preg_replace( '#[^0-9,]#', '', $atts['attachment'] ) );
-				$image = $this->get_random_image( $attachment_ids );
-			} else {
-				$exclude = empty( $atts['not'] ) ? array() : explode( ',', preg_replace( '#[^0-9,]#', '', $atts['not'] ) );
-				$image = $this->get_random_attached_image( $atts['post_id'], $exclude );
+				$atts['attachment_ids'] = $atts['attachment'];
 			}
+			unset( $atts['attachment'] );
+
+			// Allow 'attachments' to be an alias for 'attachment_ids'
+			if ( ! empty( $atts['attachments'] ) ) {
+				$atts['attachment_ids'] = $atts['attachments'];
+			}
+			unset( $atts['attachments'] );
+
+			// Allow 'not' to be an alias for 'exclude'
+			if ( ! empty( $atts['not'] ) ) {
+				$atts['exclude'] = $atts['not'];
+			}
+			unset( $atts['not'] );
+
+			// Enforce proper data types for all attributes (that aren't strings)
+			$atts['post_id'] = absint( $atts['post_id'] );
+			$atts['exclude'] = self::parse_id_list( $atts['exclude'] );
+			$atts['attachment_ids'] = self::parse_id_list( $atts['attachment_ids'] );
+			$atts['caption'] = filter_var( $atts['caption'], FILTER_VALIDATE_BOOLEAN );
+
+			$post = get_post( $atts['post_id'] );
+
+			if ( ! $post ) {
+
+				// If the user can edit this post, let them know they provided an invalid post ID
+				if ( current_user_can( 'edit_post', get_the_ID() ) ) {
+					$output = self::error(
+						sprintf( __( 'Sorry, post ID "%d" is invalid. Please check your shortcode implementation.', 'mpress-image-refresh' ), $atts['post_id'] ),
+						'[' . self::SHORTCODE . ' post_id="' . $atts['post_id'] . '"]'
+					);
+				}
+
+				return $output;
+			}
+
+			// If there are no requested attachment IDs, fetch attached images from the post
+			if ( empty( $atts['attachment_ids'] ) ) {
+				$atts['attachment_ids'] = array_map( 'absint', wp_list_pluck( get_attached_media( 'image', $post ), 'ID' ) );
+			}
+
+			// Remove excluded attachment IDs
+			$atts['attachment_ids'] = array_diff( $atts['attachment_ids'], $atts['exclude'] );
+
+			// Check if we have any attachment IDs
+			if ( empty( $atts['attachment_ids'] ) ) {
+
+				// If the user can edit this post, let them know they forgot to attach an image to the post or have excluded all available attachment IDs
+				if ( current_user_can( 'edit_post', get_the_ID() ) ) {
+					$output = self::error(
+						__( 'Sorry, it looks like you forgot to attach an image to the post or have excluded all possible attachment IDs.', 'mpress-image-refresh' ),
+						sprintf( __( 'Please check your %s shortcode implementation.', 'mpress-image-refresh' ), '[' . self::SHORTCODE . ']' )
+					);
+				}
+
+				return $output;
+			}
+
+			// Select a random attachment ID
+			$attachment_id = $atts['attachment_ids'][ array_rand( $atts['attachment_ids'] ) ];
+
+			/**
+			 * Filter the attachment ID selected for display.
+			 *
+			 * @param int $attachment_id The attachment ID
+			 * @param array $atts Parsed shortcode attributes
+			 */
+			$attachment_id = apply_filters( self::SHORTCODE . '-attachment_id', $attachment_id, $atts );
+
+			if ( ! wp_attachment_is_image( $attachment_id ) ) {
+
+				// If the user can edit this post, let them know they provided an invalid image ID
+				if ( current_user_can( 'edit_post', get_the_ID() ) ) {
+					$output = self::error(
+						sprintf( __( 'Sorry, attachment ID "%d" is invalid. Please check your shortcode implementation.', 'mpress-image-refresh' ), $attachment_id ),
+						'[' . self::SHORTCODE . ' attachment="' . join( ',', $atts['attachment_ids'] ) . '"]'
+					);
+				}
+
+				return $output;
+			}
+
+			$attachment = get_post( $attachment_id );
 
 			$image_atts = empty( $atts['class'] ) ? array() : array( 'class' => $atts['class'] );
 
-			$image_html = '';
-			if ( $image ) {
-				$image_html = wp_get_attachment_image( $image->ID, $atts['size'], false, $image_atts );
-				$display_caption = filter_var( $atts['caption'], FILTER_VALIDATE_BOOLEAN );
-				if ( $display_caption ) {
-					$image_html = "<figure>{$image_html}<figcaption>{$image->post_excerpt}</figcaption></figure>";
+			/**
+			 * Filter the image attributes.
+			 *
+			 * @param array $image_atts The attributes for the image.
+			 * @param WP_Post $attachment The attachment post object.
+			 * @param array $atts Parsed shortcode attributes.
+			 */
+			$image_atts = apply_filters( self::SHORTCODE . '-image_atts', $image_atts, $attachment, $atts );
+
+			// Check if we have a valid image size
+			$image_sizes = get_intermediate_image_sizes();
+			if ( ! in_array( $atts['size'], $image_sizes ) ) {
+
+				// If the user can edit this post, let them know they provided an invalid image size
+				if ( current_user_can( 'edit_post', get_the_ID() ) ) {
+					$output = self::error(
+						sprintf( __( 'Sorry, image size "%s" is invalid. Defaulting to "%s" image size. Please check your shortcode implementation.', 'mpress-image-refresh' ), $atts['size'], 'large' ),
+						'[' . self::SHORTCODE . ' size="' . $atts['size'] . '"]'
+					);
 				}
+
+				// Ensure that we have a valid image size
+				$atts['size'] = 'large';
 			}
 
-			return apply_filters( 'mpress_image_refresh-image_html', $image_html, $image, $atts );
+			// Setup markup
+			$markup = '<figure>%1$s</figure>';
+			if ( $atts['caption'] ) {
+				$markup = '<figure>%1$s<figcaption>%2$s</figcaption></figure>';
+			}
+
+			/**
+			 * Filter the markup surrounding the image.
+			 *
+			 * @param string $markup The sprintf formatted string.
+			 * @param WP_Post $attachment The attachment post object.
+			 * @param array $atts Parsed shortcode attributes.
+			 */
+			$markup = apply_filters( self::SHORTCODE . '-markup', $markup, $attachment, $atts );
+
+			$output .= sprintf(
+				$markup,
+				wp_get_attachment_image( $attachment->ID, $atts['size'], false, $image_atts ),
+				get_the_excerpt( $attachment->ID )
+			);
+
+			return $output;
 		}
 
 		/**
-		 * Get a random image from an array of attachment ids
+		 * Parse an ID list into an array.
 		 *
-		 * @param array $attachment_ids
+		 * @param string $list
 		 *
-		 * @return bool|mixed
+		 * @return int[]
 		 */
-		public function get_random_image( array $attachment_ids ) {
-
-			$image = false;
-
-			$args = array(
-				'ignore_sticky_posts' => true,
-				'post__in'            => $attachment_ids,
-				'post_mime_type'      => 'image',
-				'post_status'         => 'inherit',
-				'post_type'           => 'attachment',
-				'posts_per_page'      => 50,
-			);
-
-			$query = new WP_Query( $args );
-
-			if ( $query->have_posts() ) {
-				$key = array_rand( $query->posts );
-				$image = $query->posts[ $key ];
+		public static function parse_id_list( $list ) {
+			$ids = array();
+			if ( ! empty( $list ) ) {
+				$ids = array_filter( array_map( 'absint', explode( ',', preg_replace( '#[^0-9,]#', '', $list ) ) ) );
 			}
 
-			return $image;
+			return $ids;
 		}
 
 		/**
-		 * Get a random image attached to a specific post
+		 * Setup error message.
 		 *
-		 * @param       $post_id
-		 * @param array $exclude
+		 * @param string $message
 		 *
-		 * @return bool|mixed
+		 * @return string
 		 */
-		public function get_random_attached_image( $post_id, $exclude = array() ) {
+		public static function error( $message, $example ) {
 
-			$image = false;
+			wp_enqueue_style( self::SHORTCODE );
 
-			$args = array(
-				'post_mime_type' => 'image',
-				'post_parent'    => $post_id,
-				'post_status'    => 'inherit',
-				'post_type'      => 'attachment',
-				'posts_per_page' => 50,
+			return sprintf(
+				'<div class="mpress-image-refresh-error"><p>%s</p><p>%s</p></div>',
+				esc_html( $message ),
+				esc_html( $example )
 			);
-
-			if ( ! empty( $exclude ) ) {
-				$args['post__not_in'] = $exclude;
-			}
-
-			$query = new WP_Query( $args );
-
-			if ( $query->have_posts() ) {
-				$key = array_rand( $query->posts );
-				$image = $query->posts[ $key ];
-			}
-
-			return $image;
 		}
 
 	}
 
-	add_action( 'init', array( 'mPress_Image_Refresh', 'get_instance' ) );
+	mPress_Image_Refresh::initialize();
 
 }

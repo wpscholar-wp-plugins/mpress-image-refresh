@@ -1,0 +1,66 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: mpress-image-refresh 2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-02-03 15:43+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Micah Wood <micah@wpscholar.com>\n"
+"Language-Team: Micah Wood <micah@wpscholar.com>\n"
+"Language: \n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco https://localise.biz/"
+
+#: mpress-image-refresh.php:97
+#, php-format
+msgid ""
+"Sorry, post ID \"%d\" is invalid. Please check your shortcode implementation."
+msgstr ""
+
+#: mpress-image-refresh.php:119
+msgid ""
+"Sorry, it looks like you forgot to attach an image to the post or have "
+"excluded all possible attachment IDs."
+msgstr ""
+
+#: mpress-image-refresh.php:120
+#, php-format
+msgid "Please check your %s shortcode implementation."
+msgstr ""
+
+#: mpress-image-refresh.php:143
+#, php-format
+msgid ""
+"Sorry, attachment ID \"%d\" is invalid. Please check your shortcode "
+"implementation."
+msgstr ""
+
+#: mpress-image-refresh.php:171
+#, php-format
+msgid ""
+"Sorry, image size \"%s\" is invalid. Defaulting to \"%s\" image size. Please "
+"check your shortcode implementation."
+msgstr ""
+
+#. Name of the plugin
+msgid "mPress Image Refresh"
+msgstr ""
+
+#. Description of the plugin
+msgid "Show a fresh image on every page load."
+msgstr ""
+
+#. URI of the plugin
+msgid "http://wpscholar.com/wordpress-plugins/mpress-image-refresh/"
+msgstr ""
+
+#. Author of the plugin
+msgid "Micah Wood"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "http://wpscholar.com"
+msgstr ""
