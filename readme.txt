@@ -2,7 +2,7 @@
 Contributors: woodent
 Donate link: https://www.paypal.me/wpscholar
 Tags: mpress, image refresh, image rotation, random image, attachments, image with caption
-Requires at least: 3.2
+Requires at least: 4.5
 Tested up to: 4.7.2
 Stable tag: 2.0
 License: GPLv3
@@ -80,7 +80,10 @@ Keep in mind that any of these attributes can be combined as needed.  Example: `
 
 = Actions and Filters =
 
-* `mpress_image_refresh-image_html` -- Provides ability to filter the final image HTML.  The attachment post object and shortcode attributes are provided as additional parameters to the callback function.
+* `mpress_image_refresh-attachment_id` -- Filter the attachment ID selected for display. Parsed shortcode attributes are provided as an additional parameter to the callback function.
+* `mpress_image_refresh-image_atts` -- Filter the image attributes. The attachment post object and parsed shortcode attributes are provided as additional parameters to the callback function.
+* `mpress_image_refresh-markup` -- Filter the markup surrounding the image. The attachment post object and parsed shortcode attributes are provided as additional parameters to the callback function.
+* `mpress_image_refresh-image_html` -- Filter removed in version 2.0. Use `mpress_image_refresh-markup` filter instead.
 
 == Changelog ==
 
