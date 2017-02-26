@@ -163,6 +163,7 @@ if ( ! class_exists( 'mPress_Image_Refresh' ) ) {
 
 			// Check if we have a valid image size
 			$image_sizes = get_intermediate_image_sizes();
+			$image_sizes[] = 'full'; // Allow a full size image to be used.
 			if ( ! in_array( $atts['size'], $image_sizes ) ) {
 
 				// If the user can edit this post, let them know they provided an invalid image size
