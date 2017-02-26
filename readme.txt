@@ -4,7 +4,7 @@ Donate link: https://www.paypal.me/wpscholar
 Tags: mpress, image refresh, image rotation, random image, attachments, image with caption
 Requires at least: 4.5
 Tested up to: 4.7.2
-Stable tag: 2.0
+Stable tag: 2.1
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -87,6 +87,11 @@ Keep in mind that any of these attributes can be combined as needed.  Example: `
 
 == Changelog ==
 
+= 2.1 =
+
+* Fix to allow a 'full' image size to be used.
+* Added note to help messages letting the user know only logged in users with the ability to edit the shortcode can see the notification.
+
 = 2.0 =
 
 * Added helpful error messages for content editors when there is an issue with the shortcode implementation.
@@ -118,6 +123,11 @@ Keep in mind that any of these attributes can be combined as needed.  Example: `
 * Initial commit
 
 == Upgrade Notice ==
+
+= 2.1 =
+
+* Fix to allow a 'full' image size to be used.
+* Added note to help messages letting informing that only logged in users with the ability to edit the shortcode can see the notification.
 
 = 2.0 =
 
