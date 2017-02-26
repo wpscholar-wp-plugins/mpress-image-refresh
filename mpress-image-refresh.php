@@ -230,9 +230,10 @@ if ( ! class_exists( 'mPress_Image_Refresh' ) ) {
 			wp_enqueue_style( self::SHORTCODE );
 
 			return sprintf(
-				'<div class="mpress-image-refresh-error"><p>%s</p><p>%s</p></div>',
+				'<div class="mpress-image-refresh-error"><p>%s</p><p>%s</p><p>%s</p></div>',
 				esc_html( $message ),
-				esc_html( $example )
+				esc_html( $example ),
+				esc_html('Note: This helpful notification is only visible to logged in users who can edit this shortcode.')
 			);
 		}
 
