@@ -6,7 +6,7 @@
  * Plugin URI: http://wpscholar.com/wordpress-plugins/mpress-image-refresh/
  * Author: Micah Wood
  * Author URI: http://wpscholar.com
- * Version: 2.1
+ * Version: 2.1.1
  * Text Domain: mpress-image-refresh
  * License: GPL3
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -89,7 +89,7 @@ if ( ! class_exists( 'mPress_Image_Refresh' ) ) {
 
 			$post = get_post( $atts['post_id'] );
 
-			if ( ! $post ) {
+			if ( $atts['post_id'] && ! $post ) {
 
 				// If the user can edit this post, let them know they provided an invalid post ID
 				if ( current_user_can( 'edit_post', get_the_ID() ) ) {
@@ -233,7 +233,7 @@ if ( ! class_exists( 'mPress_Image_Refresh' ) ) {
 				'<div class="mpress-image-refresh-error"><p>%s</p><p>%s</p><p>%s</p></div>',
 				esc_html( $message ),
 				esc_html( $example ),
-				esc_html('Note: This helpful notification is only visible to logged in users who can edit this shortcode.')
+				esc_html( 'Note: This helpful notification is only visible to logged in users who can edit this shortcode.' )
 			);
 		}
 

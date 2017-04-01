@@ -1,10 +1,10 @@
 === mPress Image Refresh ===
 Contributors: woodent
 Donate link: https://www.paypal.me/wpscholar
-Tags: mpress, image refresh, image rotation, random image, attachments, image with caption
+Tags: random image, image reload, image refresh, image rotation, different image, attachments, image with caption
 Requires at least: 4.5
-Tested up to: 4.7.2
-Stable tag: 2.1
+Tested up to: 4.7.3
+Stable tag: 2.1.1
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -12,7 +12,7 @@ Show a fresh image on every page load.
 
 == Description ==
 
-The **mPress Image Refresh** plugin allows you to randomly display a new image on every page load.
+The **mPress Image Refresh** plugin allows you to randomly display a different image on every page load.
 
 = Why? =
 
@@ -87,6 +87,9 @@ Keep in mind that any of these attributes can be combined as needed.  Example: `
 
 == Changelog ==
 
+= 2.1.1 =
+* Fixed bug where no image was shown on 404 pages when explicitly providing a collection of attachment IDs.
+
 = 2.1 =
 
 * Fix to allow a 'full' image size to be used.
@@ -123,6 +126,9 @@ Keep in mind that any of these attributes can be combined as needed.  Example: `
 * Initial commit
 
 == Upgrade Notice ==
+
+= 2.1.1 =
+* Fixed bug where no image was shown on 404 pages when explicitly providing a collection of attachment IDs.
 
 = 2.1 =
 
