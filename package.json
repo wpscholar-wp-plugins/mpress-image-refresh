@@ -1,16 +1,22 @@
 {
   "name": "mpress-image-refresh",
-  "description": "The mPress Hide from Search plugin allows to you hide specific pages from WordPress search.",
-  "author": "Micah Wood <micah@wpscholar.com> (http://wpscholar.com)",
-  "license": "GPL-3.0+",
+  "description": "Show a fresh image on every page load.",
   "private": true,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "i18n": "wpi18n addtextdomain && wpi18n makepot"
+  },
   "repository": {
     "type": "git",
-    "url": "https://github.com/wpscholar/mPress-Image-Refresh.git"
+    "url": "git+https://github.com/wpscholar-wp-plugins/mpress-image-refresh.git"
   },
-  "dependencies": {
-    "del": "^1.2.1",
-    "gulp": "^3.9.1",
-    "gulp-shell": "^0.4.3"
+  "author": "Micah Wood <micah@wpscholar.com> (https://wpscholar.com)",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/wpscholar-wp-plugins/mpress-image-refresh/issues"
+  },
+  "homepage": "https://github.com/wpscholar-wp-plugins/mpress-image-refresh#readme",
+  "devDependencies": {
+    "node-wp-i18n": "^1.2.3"
   }
 }
