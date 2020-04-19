@@ -1,16 +1,20 @@
 <?php
 
 /*
- * Plugin Name: mPress Image Refresh
+ * Plugin Name: Image Refresh
  * Description: Show a fresh image on every page load.
  * Plugin URI: http://wpscholar.com/wordpress-plugins/mpress-image-refresh/
+ * Version: 2.1.1
  * Author: Micah Wood
  * Author URI: http://wpscholar.com
- * Version: 2.1.1
+ * Requires at least: 4.5
+ * Requires PHP: 5.3
  * Text Domain: mpress-image-refresh
+ * Domain Path: languages
  * License: GPL3
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
- * Copyright 2014-2017 by Micah Wood - All rights reserved.
+ *
+ * Copyright 2014-2020 by Micah Wood - All rights reserved.
  */
 
 if ( ! class_exists( 'mPress_Image_Refresh' ) ) {
@@ -82,10 +86,10 @@ if ( ! class_exists( 'mPress_Image_Refresh' ) ) {
 			unset( $atts['not'] );
 
 			// Enforce proper data types for all attributes (that aren't strings)
-			$atts['post_id'] = absint( $atts['post_id'] );
-			$atts['exclude'] = self::parse_id_list( $atts['exclude'] );
+			$atts['post_id']        = absint( $atts['post_id'] );
+			$atts['exclude']        = self::parse_id_list( $atts['exclude'] );
 			$atts['attachment_ids'] = self::parse_id_list( $atts['attachment_ids'] );
-			$atts['caption'] = filter_var( $atts['caption'], FILTER_VALIDATE_BOOLEAN );
+			$atts['caption']        = filter_var( $atts['caption'], FILTER_VALIDATE_BOOLEAN );
 
 			$post = get_post( $atts['post_id'] );
 
@@ -130,8 +134,8 @@ if ( ! class_exists( 'mPress_Image_Refresh' ) ) {
 			/**
 			 * Filter the attachment ID selected for display.
 			 *
-			 * @param int $attachment_id The attachment ID
-			 * @param array $atts Parsed shortcode attributes
+			 * @param int   $attachment_id The attachment ID
+			 * @param array $atts          Parsed shortcode attributes
 			 */
 			$attachment_id = apply_filters( self::SHORTCODE . '-attachment_id', $attachment_id, $atts );
 
@@ -155,14 +159,14 @@ if ( ! class_exists( 'mPress_Image_Refresh' ) ) {
 			/**
 			 * Filter the image attributes.
 			 *
-			 * @param array $image_atts The attributes for the image.
+			 * @param array   $image_atts The attributes for the image.
 			 * @param WP_Post $attachment The attachment post object.
-			 * @param array $atts Parsed shortcode attributes.
+			 * @param array   $atts       Parsed shortcode attributes.
 			 */
 			$image_atts = apply_filters( self::SHORTCODE . '-image_atts', $image_atts, $attachment, $atts );
 
 			// Check if we have a valid image size
-			$image_sizes = get_intermediate_image_sizes();
+			$image_sizes   = get_intermediate_image_sizes();
 			$image_sizes[] = 'full'; // Allow a full size image to be used.
 			if ( ! in_array( $atts['size'], $image_sizes ) ) {
 
@@ -187,9 +191,9 @@ if ( ! class_exists( 'mPress_Image_Refresh' ) ) {
 			/**
 			 * Filter the markup surrounding the image.
 			 *
-			 * @param string $markup The sprintf formatted string.
+			 * @param string  $markup     The sprintf formatted string.
 			 * @param WP_Post $attachment The attachment post object.
-			 * @param array $atts Parsed shortcode attributes.
+			 * @param array   $atts       Parsed shortcode attributes.
 			 */
 			$markup = apply_filters( self::SHORTCODE . '-markup', $markup, $attachment, $atts );
 
