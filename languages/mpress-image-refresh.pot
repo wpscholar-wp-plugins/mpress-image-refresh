@@ -2,10 +2,10 @@
 # This file is distributed under the GPL3.
 msgid ""
 msgstr ""
-"Project-Id-Version: mPress Image Refresh 2.1.1\n"
+"Project-Id-Version: Image Refresh 2.1.1\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/mpress-image-refresh\n"
-"POT-Creation-Date: 2020-04-19 00:06:57+00:00\n"
+"POT-Creation-Date: 2020-04-19 03:57:27+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -43,7 +43,7 @@ msgid ""
 msgstr ""
 
 #. Plugin Name of the plugin/theme
-msgid "mPress Image Refresh"
+msgid "Image Refresh"
 msgstr ""
 
 #. Plugin URI of the plugin/theme

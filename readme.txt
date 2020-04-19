@@ -1,4 +1,4 @@
-=== mPress Image Refresh ===
+=== Image Refresh ===
 Contributors: wpscholar
 Donate link: https://www.paypal.me/wpscholar
 Tags: random image, image reload, image refresh, image rotation, different image, attachments, image with caption
@@ -13,7 +13,7 @@ Show a fresh image on every page load.
 
 == Description ==
 
-The **mPress Image Refresh** plugin allows you to randomly display a different image on every page load.
+The **Image Refresh** plugin allows you to randomly display a different image on every page load.
 
 = Why? =
 
