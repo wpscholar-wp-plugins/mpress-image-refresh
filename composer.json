@@ -1,14 +1,12 @@
 {
-    "name": "wpscholar/mpress-image-refresh",
-    "description": "",
-    "license": "GPL-2.0+",
-    "type": "wordpress-plugin",
-    "authors": [
-        {
-            "name": "Micah Wood",
-            "email": "micah@wpscholar.com",
-            "homepage": "http://wpscholar.com",
-            "role": "Developer"
-        }
-    ]
+  "name": "wpscholar/mpress-image-refresh",
+  "description": "Show a fresh image on every page load.",
+  "license": "GPL-2.0+",
+  "type": "wordpress-plugin",
+  "authors": [
+    {
+      "name": "Micah Wood",
+      "homepage": "http://wpscholar.com"
+    }
+  ]
 }
