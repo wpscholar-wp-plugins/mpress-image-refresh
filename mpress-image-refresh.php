@@ -62,6 +62,7 @@ if ( ! class_exists( 'mPress_Image_Refresh' ) ) {
 					'not'            => '', // Alias of 'exclude'
 					'post_id'        => get_the_ID(),
 					'size'           => 'large',
+					'source'         => 'post',
 				),
 				$atts,
 				self::SHORTCODE
@@ -108,7 +109,18 @@ if ( ! class_exists( 'mPress_Image_Refresh' ) ) {
 
 			// If there are no requested attachment IDs, fetch attached images from the post
 			if ( empty( $atts['attachment_ids'] ) ) {
-				$atts['attachment_ids'] = array_map( 'absint', wp_list_pluck( get_attached_media( 'image', $post ), 'ID' ) );
+				if ( 'post' === $atts['source'] ) {
+					$atts['attachment_ids'] = array_map( 'absint', wp_list_pluck( get_attached_media( 'image', $post ), 'ID' ) );
+				} else {
+					$query = new WP_Query( array(
+						'post_type'      => 'attachment',
+						'post_mime_type' => 'image',
+						'post_status'    => 'inherit',
+						'posts_per_page' => 100,
+						'fields'         => 'ids',
+					) );
+					$atts['attachment_ids'] = $query->posts;
+				}
 			}
 
 			// Remove excluded attachment IDs
@@ -168,6 +180,7 @@ if ( ! class_exists( 'mPress_Image_Refresh' ) ) {
 			// Check if we have a valid image size
 			$image_sizes   = get_intermediate_image_sizes();
 			$image_sizes[] = 'full'; // Allow a full size image to be used.
+
 			if ( ! in_array( $atts['size'], $image_sizes ) ) {
 
 				// If the user can edit this post, let them know they provided an invalid image size
