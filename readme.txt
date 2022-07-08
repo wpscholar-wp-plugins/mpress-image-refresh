@@ -3,9 +3,9 @@ Contributors: wpscholar
 Donate link: https://www.paypal.me/wpscholar
 Tags: random image, image reload, image refresh, image rotation, different image, attachments, image with caption
 Requires at least: 4.5
-Requires PHP: 5.3
-Tested up to: 5.6
-Stable tag: 2.1.1
+Requires PHP: 5.4
+Tested up to: 6.0
+Stable tag: 2.2
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -88,6 +88,10 @@ Keep in mind that any of these attributes can be combined as needed.  Example: `
 
 == Changelog ==
 
+= 2.2 =
+
+* Added ability to specify a link URL for images.
+
 = 2.1.1 =
 * Fixed bug where no image was shown on 404 pages when explicitly providing a collection of attachment IDs.
 
@@ -128,7 +132,12 @@ Keep in mind that any of these attributes can be combined as needed.  Example: `
 
 == Upgrade Notice ==
 
+= 2.2 =
+
+* Adds ability to specify a link URL for images.
+
 = 2.1.1 =
+
 * Fixed bug where no image was shown on 404 pages when explicitly providing a collection of attachment IDs.
 
 = 2.1 =
