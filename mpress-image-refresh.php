@@ -24,18 +24,105 @@ if ( ! class_exists( 'mPress_Image_Refresh' ) ) {
 	 */
 	class mPress_Image_Refresh {
 
+		/**
+		 * The shortcode name.
+		 *
+		 * @var string
+		 */
 		const SHORTCODE = 'mpress_image_refresh';
+
+		/**
+		 * The meta key where the URL is stored for images.
+		 *
+		 * @var string
+		 */
+		const META_KEY = 'image_refresh_url';
 
 		/**
 		 * Initialize the plugin.
 		 */
 		public static function initialize() {
 			load_plugin_textdomain( 'mpress-image-refresh', false, dirname( __FILE__ ) . '/languages' );
-			add_filter( 'widget_text', 'do_shortcode' );
 			add_action( 'wp_enqueue_scripts', array( __CLASS__, 'wp_enqueue_scripts' ) );
+			add_filter( 'attachment_fields_to_edit', array( __CLASS__, 'add_external_url_field' ), 10, 2 );
+			add_filter( 'attachment_fields_to_save', array( __CLASS__, 'save_external_url_field' ), 10, 2 );
+			add_filter( self::SHORTCODE . '-markup', array( __CLASS__, 'add_link_markup' ), 10, 2 );
+			add_filter( 'widget_text', 'do_shortcode' );
 			add_shortcode( self::SHORTCODE, array( __CLASS__, 'shortcode' ) );
 		}
 
+		/**
+		 * Add the external URL field to the attachment fields.
+		 *
+		 * @param array   $img_fields Array of image fields.
+		 * @param WP_Post $post       Post object.
+		 *
+		 * @return array
+		 */
+		public static function add_external_url_field( $img_fields, WP_Post $post ) {
+			$url_field                    = get_post_meta( $post->ID, self::META_KEY, true );
+			$img_fields[ self::META_KEY ] =
+				[
+					'label' => __( 'Image Refresh URL', 'mpress-image-refresh' ),
+					'input' => 'url',
+					'value' => $url_field,
+				];
+
+			return $img_fields;
+
+		}
+
+		/**
+		 * Save the external URL field.
+		 *
+		 * @param array $post       Post data.
+		 * @param array $attachment Attachment data.
+		 *
+		 * @return array
+		 */
+		public static function save_external_url_field( $post, $attachment ) {
+			if ( isset( $attachment[ self::META_KEY ] ) ) {
+				update_post_meta( $post['ID'], self::META_KEY, sanitize_text_field( $attachment[ self::META_KEY ] ) );
+			} else {
+				delete_post_meta( $post['ID'], self::META_KEY );
+			}
+
+			return $post;
+		}
+
+		/**
+		 * Add the link markup to the image.
+		 *
+		 * @param string  $markup     Image markup.
+		 * @param WP_Post $attachment Attachement object.
+		 *
+		 * @return string
+		 */
+		public static function add_link_markup( $markup, WP_Post $attachment ) {
+			$url = get_post_meta( $attachment->ID, self::META_KEY, true );
+
+			if ( ! empty( $url ) ) {
+				$url_domain  = parse_url( $url, PHP_URL_HOST );
+				$home_domain = parse_url( home_url(), PHP_URL_HOST );
+				$target      = '_self';
+
+				if ( $home_domain !== $url_domain && ! empty ( $url_domain ) ) {
+					$target = '_blank';
+				}
+
+				$markup = str_replace(
+					'%1$s',
+					'<a href="' . esc_url( $url ) . '"  target="' . esc_attr( $target ) . '">%1$s</a>',
+					$markup
+				);
+			}
+
+			return $markup;
+		}
+
+		/**
+		 * Enqueue the scripts.
+		 */
 		public static function wp_enqueue_scripts() {
 			wp_register_style( self::SHORTCODE, plugins_url( '/assets/mpress-image-refresh.css', __FILE__ ) );
 		}
@@ -112,7 +199,7 @@ if ( ! class_exists( 'mPress_Image_Refresh' ) ) {
 				if ( 'post' === $atts['source'] ) {
 					$atts['attachment_ids'] = array_map( 'absint', wp_list_pluck( get_attached_media( 'image', $post ), 'ID' ) );
 				} else {
-					$query = new WP_Query( array(
+					$query                  = new WP_Query( array(
 						'post_type'      => 'attachment',
 						'post_mime_type' => 'image',
 						'post_status'    => 'inherit',
