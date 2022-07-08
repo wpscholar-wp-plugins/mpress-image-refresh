@@ -36,7 +36,7 @@ if ( ! class_exists( 'mPress_Image_Refresh' ) ) {
 		 *
 		 * @var string
 		 */
-		const META_KEY = 'image_refresh_url';
+		const META_KEY = 'image_refresh_link_url';
 
 		/**
 		 * Initialize the plugin.
@@ -63,7 +63,7 @@ if ( ! class_exists( 'mPress_Image_Refresh' ) ) {
 			$url_field                    = get_post_meta( $post->ID, self::META_KEY, true );
 			$img_fields[ self::META_KEY ] =
 				[
-					'label' => __( 'Image Refresh URL', 'mpress-image-refresh' ),
+					'label' => __( 'Image Refresh Link URL', 'mpress-image-refresh' ),
 					'input' => 'url',
 					'value' => $url_field,
 				];
