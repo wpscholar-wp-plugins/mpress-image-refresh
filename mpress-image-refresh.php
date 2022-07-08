@@ -1,20 +1,25 @@
 <?php
-
-/*
- * Plugin Name: Image Refresh
- * Description: Show a fresh image on every page load.
- * Plugin URI: http://wpscholar.com/wordpress-plugins/mpress-image-refresh/
- * Version: 2.1.1
- * Author: Micah Wood
- * Author URI: http://wpscholar.com
- * Requires at least: 4.5
- * Requires PHP: 5.3
- * Text Domain: mpress-image-refresh
- * Domain Path: languages
- * License: GPL3
- * License URI: http://www.gnu.org/licenses/gpl-3.0.html
+/**
+ * Image Refresh
  *
- * Copyright 2014-2021 by Micah Wood - All rights reserved.
+ * @package           ImageRefresh
+ * @author            Micah Wood
+ * @copyright         Copyright 2014-2022 by Micah Wood - All rights reserved.
+ * @license           GPL2.0-or-later
+ *
+ * @wordpress-plugin
+ * Plugin Name:       Image Refresh
+ * Plugin URI:        http://wpscholar.com/wordpress-plugins/mpress-image-refresh/
+ * Description:       Show a fresh image on every page load.
+ * Version:           2.1.1
+ * Requires PHP:      5.4
+ * Requires at least: 4.5
+ * Author:            Micah Wood
+ * Author URI:        https://wpscholar.com
+ * Text Domain:       mpress-image-refresh
+ * Domain Path:       /languages
+ * License:           GPL V2 or later
+ * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
  */
 
 if ( ! class_exists( 'mPress_Image_Refresh' ) ) {
@@ -62,11 +67,11 @@ if ( ! class_exists( 'mPress_Image_Refresh' ) ) {
 		public static function add_external_url_field( $img_fields, WP_Post $post ) {
 			$url_field                    = get_post_meta( $post->ID, self::META_KEY, true );
 			$img_fields[ self::META_KEY ] =
-				[
+				array(
 					'label' => __( 'Image Refresh Link URL', 'mpress-image-refresh' ),
 					'input' => 'url',
 					'value' => $url_field,
-				];
+				);
 
 			return $img_fields;
 
@@ -102,11 +107,11 @@ if ( ! class_exists( 'mPress_Image_Refresh' ) ) {
 			$url = get_post_meta( $attachment->ID, self::META_KEY, true );
 
 			if ( ! empty( $url ) ) {
-				$url_domain  = parse_url( $url, PHP_URL_HOST );
-				$home_domain = parse_url( home_url(), PHP_URL_HOST );
+				$url_domain  = wp_parse_url( $url, PHP_URL_HOST );
+				$home_domain = wp_parse_url( home_url(), PHP_URL_HOST );
 				$target      = '_self';
 
-				if ( $home_domain !== $url_domain && ! empty ( $url_domain ) ) {
+				if ( $home_domain !== $url_domain && ! empty( $url_domain ) ) {
 					$target = '_blank';
 				}
 
@@ -124,13 +129,18 @@ if ( ! class_exists( 'mPress_Image_Refresh' ) ) {
 		 * Enqueue the scripts.
 		 */
 		public static function wp_enqueue_scripts() {
-			wp_register_style( self::SHORTCODE, plugins_url( '/assets/mpress-image-refresh.css', __FILE__ ) );
+			wp_register_style(
+				self::SHORTCODE,
+				plugins_url( '/assets/mpress-image-refresh.css', __FILE__ ),
+				array(),
+				get_plugin_data( __FILE__ )['Version']
+			);
 		}
 
 		/**
 		 * Shortcode handler
 		 *
-		 * @param array $atts
+		 * @param array $atts Shortcode attributes.
 		 *
 		 * @return bool|string
 		 */
@@ -186,6 +196,7 @@ if ( ! class_exists( 'mPress_Image_Refresh' ) ) {
 				// If the user can edit this post, let them know they provided an invalid post ID
 				if ( current_user_can( 'edit_post', get_the_ID() ) ) {
 					$output = self::error(
+						/* translators: %d is the post ID */
 						sprintf( __( 'Sorry, post ID "%d" is invalid. Please check your shortcode implementation.', 'mpress-image-refresh' ), $atts['post_id'] ),
 						'[' . self::SHORTCODE . ' post_id="' . $atts['post_id'] . '"]'
 					);
@@ -199,13 +210,15 @@ if ( ! class_exists( 'mPress_Image_Refresh' ) ) {
 				if ( 'post' === $atts['source'] ) {
 					$atts['attachment_ids'] = array_map( 'absint', wp_list_pluck( get_attached_media( 'image', $post ), 'ID' ) );
 				} else {
-					$query                  = new WP_Query( array(
-						'post_type'      => 'attachment',
-						'post_mime_type' => 'image',
-						'post_status'    => 'inherit',
-						'posts_per_page' => 100,
-						'fields'         => 'ids',
-					) );
+					$query                  = new WP_Query(
+						array(
+							'post_type'      => 'attachment',
+							'post_mime_type' => 'image',
+							'post_status'    => 'inherit',
+							'posts_per_page' => 100,
+							'fields'         => 'ids',
+						)
+					);
 					$atts['attachment_ids'] = $query->posts;
 				}
 			}
@@ -220,6 +233,7 @@ if ( ! class_exists( 'mPress_Image_Refresh' ) ) {
 				if ( current_user_can( 'edit_post', get_the_ID() ) ) {
 					$output = self::error(
 						__( 'Sorry, it looks like you forgot to attach an image to the post or have excluded all possible attachment IDs.', 'mpress-image-refresh' ),
+						/* translators: %s is the shortcode implementation */
 						sprintf( __( 'Please check your %s shortcode implementation.', 'mpress-image-refresh' ), '[' . self::SHORTCODE . ']' )
 					);
 				}
@@ -243,6 +257,7 @@ if ( ! class_exists( 'mPress_Image_Refresh' ) ) {
 				// If the user can edit this post, let them know they provided an invalid image ID
 				if ( current_user_can( 'edit_post', get_the_ID() ) ) {
 					$output = self::error(
+					/* translators: %d is the attachment ID */
 						sprintf( __( 'Sorry, attachment ID "%d" is invalid. Please check your shortcode implementation.', 'mpress-image-refresh' ), $attachment_id ),
 						'[' . self::SHORTCODE . ' attachment="' . join( ',', $atts['attachment_ids'] ) . '"]'
 					);
@@ -268,12 +283,13 @@ if ( ! class_exists( 'mPress_Image_Refresh' ) ) {
 			$image_sizes   = get_intermediate_image_sizes();
 			$image_sizes[] = 'full'; // Allow a full size image to be used.
 
-			if ( ! in_array( $atts['size'], $image_sizes ) ) {
+			if ( ! in_array( $atts['size'], $image_sizes, true ) ) {
 
 				// If the user can edit this post, let them know they provided an invalid image size
 				if ( current_user_can( 'edit_post', get_the_ID() ) ) {
 					$output = self::error(
-						sprintf( __( 'Sorry, image size "%s" is invalid. Defaulting to "%s" image size. Please check your shortcode implementation.', 'mpress-image-refresh' ), $atts['size'], 'large' ),
+					/* translators: %1$s is the invalid image size, %2$s is the default image size being used. */
+						sprintf( __( 'Sorry, image size "%1$s" is invalid. Defaulting to "%2$s" image size. Please check your shortcode implementation.', 'mpress-image-refresh' ), $atts['size'], 'large' ),
 						'[' . self::SHORTCODE . ' size="' . $atts['size'] . '"]'
 					);
 				}
@@ -309,7 +325,7 @@ if ( ! class_exists( 'mPress_Image_Refresh' ) ) {
 		/**
 		 * Parse an ID list into an array.
 		 *
-		 * @param string $list
+		 * @param string $list A comma separated list of IDs.
 		 *
 		 * @return int[]
 		 */
@@ -325,7 +341,8 @@ if ( ! class_exists( 'mPress_Image_Refresh' ) ) {
 		/**
 		 * Setup error message.
 		 *
-		 * @param string $message
+		 * @param string $message The error message.
+		 * @param string $example The example shortcode.
 		 *
 		 * @return string
 		 */

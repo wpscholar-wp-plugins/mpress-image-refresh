@@ -3,4 +3,8 @@
     <rule ref="WPScholar"/>
     <config name="testVersion" value="5.3-"/>
     <config name="minimum_supported_wp_version" value="4.5"/>
+    <rule ref="WPScholar">
+        <exclude name="PEAR.NamingConventions.ValidClassName.StartWithCapital" />
+        <exclude name="WordPress.NamingConventions.ValidHookName.UseUnderscores" />
+    </rule>
 </ruleset>
