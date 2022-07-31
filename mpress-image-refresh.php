@@ -129,6 +129,11 @@ if ( ! class_exists( 'mPress_Image_Refresh' ) ) {
 		 * Enqueue the scripts.
 		 */
 		public static function wp_enqueue_scripts() {
+
+			if ( ! function_exists( 'get_plugin_data' ) ) {
+				require_once ABSPATH . 'wp-admin/includes/plugin.php';
+			}
+
 			wp_register_style(
 				self::SHORTCODE,
 				plugins_url( '/assets/mpress-image-refresh.css', __FILE__ ),
