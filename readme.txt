@@ -5,7 +5,7 @@ Tags: random image, image reload, image refresh, image rotation, different image
 Requires at least: 4.5
 Requires PHP: 5.4
 Tested up to: 6.0
-Stable tag: 2.2
+Stable tag: 2.2.1
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -88,11 +88,16 @@ Keep in mind that any of these attributes can be combined as needed.  Example: `
 
 == Changelog ==
 
+= 2.2.1 =
+
+* Fix fatal error in WP 6.0.1
+
 = 2.2 =
 
 * Added ability to specify a link URL for images.
 
 = 2.1.1 =
+
 * Fixed bug where no image was shown on 404 pages when explicitly providing a collection of attachment IDs.
 
 = 2.1 =
@@ -131,6 +136,10 @@ Keep in mind that any of these attributes can be combined as needed.  Example: `
 * Initial commit
 
 == Upgrade Notice ==
+
+= 2.2.1 =
+
+* Bug fixes.
 
 = 2.2 =
 
