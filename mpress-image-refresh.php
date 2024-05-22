@@ -4,14 +4,14 @@
  *
  * @package           ImageRefresh
  * @author            Micah Wood
- * @copyright         Copyright 2014-2022 by Micah Wood - All rights reserved.
+ * @copyright         Copyright 2014-2024 by Micah Wood - All rights reserved.
  * @license           GPL2.0-or-later
  *
  * @wordpress-plugin
  * Plugin Name:       Image Refresh
  * Plugin URI:        http://wpscholar.com/wordpress-plugins/mpress-image-refresh/
  * Description:       Show a fresh image on every page load.
- * Version:           2.2.1
+ * Version:           2.3
  * Requires PHP:      5.4
  * Requires at least: 4.5
  * Author:            Micah Wood

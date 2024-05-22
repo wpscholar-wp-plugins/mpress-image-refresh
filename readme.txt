@@ -4,8 +4,8 @@ Donate link: https://www.paypal.me/wpscholar
 Tags: random image, image reload, image refresh, image rotation, different image, attachments, image with caption
 Requires at least: 4.5
 Requires PHP: 5.4
-Tested up to: 6.0
-Stable tag: 2.2.1
+Tested up to: 6.5
+Stable tag: 2.3
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -88,6 +88,11 @@ Keep in mind that any of these attributes can be combined as needed.  Example: `
 
 == Changelog ==
 
+= 2.3 =
+
+* Update compatibility with WP 6.5
+* Add ability to randomly select an attachment ID from a subset.
+
 = 2.2.1 =
 
 * Fix fatal error in WP 6.0.1
@@ -136,6 +141,10 @@ Keep in mind that any of these attributes can be combined as needed.  Example: `
 * Initial commit
 
 == Upgrade Notice ==
+
+= 2.3 =
+
+* Add new feature to shortcode to allow random subsets
 
 = 2.2.1 =
 

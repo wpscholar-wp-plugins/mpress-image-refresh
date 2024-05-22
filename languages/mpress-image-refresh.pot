@@ -1,44 +1,53 @@
-# Copyright (C) 2020 Micah Wood
-# This file is distributed under the GPL3.
+# Copyright (C) 2024 Micah Wood
+# This file is distributed under the GPL V2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Image Refresh 2.1.1\n"
+"Project-Id-Version: Image Refresh 2.3\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/mpress-image-refresh\n"
-"POT-Creation-Date: 2020-04-19 03:57:27+00:00\n"
+"POT-Creation-Date: 2024-05-22 19:45:24+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2020-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2024-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"X-Generator: node-wp-i18n 1.2.3\n"
+"X-Generator: node-wp-i18n 1.2.7\n"
 
-#: mpress-image-refresh.php:101
+#: mpress-image-refresh.php:71
+msgid "Image Refresh Link URL"
+msgstr ""
+
+#: mpress-image-refresh.php:204
+#. translators: %d is the post ID
 msgid ""
 "Sorry, post ID \"%d\" is invalid. Please check your shortcode "
 "implementation."
 msgstr ""
 
-#: mpress-image-refresh.php:123
+#: mpress-image-refresh.php:239
 msgid ""
 "Sorry, it looks like you forgot to attach an image to the post or have "
 "excluded all possible attachment IDs."
 msgstr ""
 
-#: mpress-image-refresh.php:124
+#: mpress-image-refresh.php:241
+#. translators: %s is the shortcode implementation
 msgid "Please check your %s shortcode implementation."
 msgstr ""
 
-#: mpress-image-refresh.php:147
+#: mpress-image-refresh.php:265
+#. translators: %d is the attachment ID
 msgid ""
 "Sorry, attachment ID \"%d\" is invalid. Please check your shortcode "
 "implementation."
 msgstr ""
 
-#: mpress-image-refresh.php:176
+#: mpress-image-refresh.php:296
+#. translators: %1$s is the invalid image size, %2$s is the default image size
+#. being used.
 msgid ""
-"Sorry, image size \"%s\" is invalid. Defaulting to \"%s\" image size. "
+"Sorry, image size \"%1$s\" is invalid. Defaulting to \"%2$s\" image size. "
 "Please check your shortcode implementation."
 msgstr ""
 
@@ -59,5 +68,5 @@ msgid "Micah Wood"
 msgstr ""
 
 #. Author URI of the plugin/theme
-msgid "http://wpscholar.com"
+msgid "https://wpscholar.com"
 msgstr ""
