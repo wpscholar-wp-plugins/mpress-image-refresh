@@ -47,7 +47,7 @@ if ( ! class_exists( 'mPress_Image_Refresh' ) ) {
 		 * Initialize the plugin.
 		 */
 		public static function initialize() {
-			load_plugin_textdomain( 'mpress-image-refresh', false, dirname( __FILE__ ) . '/languages' );
+			load_plugin_textdomain( 'mpress-image-refresh', false, __DIR__ . '/languages' );
 			add_action( 'wp_enqueue_scripts', array( __CLASS__, 'wp_enqueue_scripts' ) );
 			add_filter( 'attachment_fields_to_edit', array( __CLASS__, 'add_external_url_field' ), 10, 2 );
 			add_filter( 'attachment_fields_to_save', array( __CLASS__, 'save_external_url_field' ), 10, 2 );
@@ -74,7 +74,6 @@ if ( ! class_exists( 'mPress_Image_Refresh' ) ) {
 				);
 
 			return $img_fields;
-
 		}
 
 		/**
@@ -191,7 +190,7 @@ if ( ! class_exists( 'mPress_Image_Refresh' ) ) {
 			// Enforce proper data types for all attributes (that aren't strings)
 			$atts['post_id']        = absint( $atts['post_id'] );
 			$atts['exclude']        = self::parse_id_list( $atts['exclude'] );
-			$atts['attachment_ids'] = self::parse_id_list( $atts['attachment_ids'] );
+			$atts['attachment_ids'] = self::parse_conditional_values( $atts['attachment_ids'] );
 			$atts['caption']        = filter_var( $atts['caption'], FILTER_VALIDATE_BOOLEAN );
 
 			$post = get_post( $atts['post_id'] );
@@ -328,16 +327,41 @@ if ( ! class_exists( 'mPress_Image_Refresh' ) ) {
 		}
 
 		/**
-		 * Parse an ID list into an array.
+		 * Parse values with conditional subsets.
 		 *
-		 * @param string $list A comma separated list of IDs.
+		 * For example: 9,10,11|12|13 - Selects based on comma-separation, but if the third option is selected, it randomly selects between numbers separated by a "|" character.
+		 *
+		 * @param string $id_list A comma separated list of IDs.
 		 *
 		 * @return int[]
 		 */
-		public static function parse_id_list( $list ) {
+		public static function parse_conditional_values( $id_list ) {
+			$items = explode( ',', $id_list );
+			foreach ( $items as $key => $item ) {
+				if ( strpos( $item, '|' ) !== false ) {
+					$values = array_filter( array_map( 'absint', explode( '|', $item ) ) );
+					if ( $values && is_array( $values ) ) {
+						$selected      = array_rand( $values, 1 );
+						$items[ $key ] = $values[ $selected ];
+					} else {
+						unset( $items[ $key ] );
+					}
+				}
+			}
+			return array_filter( array_map( 'absint', $items ) );
+		}
+
+		/**
+		 * Parse an ID list into an array.
+		 *
+		 * @param string $id_list A comma separated list of IDs.
+		 *
+		 * @return int[]
+		 */
+		public static function parse_id_list( $id_list ) {
 			$ids = array();
-			if ( ! empty( $list ) ) {
-				$ids = array_filter( array_map( 'absint', explode( ',', preg_replace( '#[^0-9,]#', '', $list ) ) ) );
+			if ( ! empty( $id_list ) ) {
+				$ids = array_filter( array_map( 'absint', explode( ',', preg_replace( '#[^0-9,]#', '', $id_list ) ) ) );
 			}
 
 			return $ids;
@@ -362,7 +386,6 @@ if ( ! class_exists( 'mPress_Image_Refresh' ) ) {
 				esc_html( 'Note: This helpful notification is only visible to logged in users who can edit this shortcode.' )
 			);
 		}
-
 	}
 
 	mPress_Image_Refresh::initialize();
