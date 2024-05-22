@@ -65,7 +65,7 @@ Once the plugin is installed and activated, go to any page or post where you wan
 
 The `[mpress_image_refresh]` shortcode supports a few attributes to give you more control over the results:
 
-* **attachment** - You can pass in a comma separated list of image IDs if you want to directly specify a set of images to use. Using this attribute invalidates the `post_id` and `not` attributes. Example: `[mpress_image_refresh attachment="19, 37, 940"]`
+* **attachment** - You can pass in a comma separated list of image IDs if you want to directly specify a set of images to use. Using this attribute invalidates the `post_id` and `not` attributes. Example: `[mpress_image_refresh attachment="19, 37, 940"]` Optionally, you can also have the shortcode randomly pull from a subset using this syntax: `[mpress_image_refresh attachment="19,37,940|453|98"]`
 
 * **post_id** - You can pass in the post ID to pull attached images from.  If your images are attached to another post, just provide the ID of that post and we will pull those images instead.  Example: `[mpress_image_refresh post_id="19"]`
 
