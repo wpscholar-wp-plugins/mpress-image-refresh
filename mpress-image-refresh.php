@@ -11,7 +11,7 @@
  * Plugin Name:       Image Refresh
  * Plugin URI:        http://wpscholar.com/wordpress-plugins/mpress-image-refresh/
  * Description:       Show a fresh image on every page load.
- * Version:           2.3
+ * Version:           2.3.1
  * Requires PHP:      5.4
  * Requires at least: 4.5
  * Author:            Micah Wood

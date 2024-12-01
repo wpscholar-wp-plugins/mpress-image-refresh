@@ -1,7 +1,7 @@
 {
   "name": "wpscholar/mpress-image-refresh",
   "description": "Show a fresh image on every page load.",
-  "license": "GPL-2.0+",
+  "license": "GPL-2.0-or-later",
   "type": "wordpress-plugin",
   "authors": [
     {
@@ -9,15 +9,23 @@
       "homepage": "http://wpscholar.com"
     }
   ],
+  "require": {
+    "php": ">=5.4"
+  },
   "require-dev": {
-    "wpscholar/phpcs-standards-wpscholar": "@stable"
+    "wpscholar/phpcs-standards-wpscholar": "@stable",
+    "wp-cli/wp-cli-bundle": "^2.11"
   },
   "scripts": {
     "fix": "vendor/bin/phpcbf . -s",
+    "i18n": [
+      "vendor/bin/wp i18n make-pot . ./languages/simple-website-redirect.pot --headers='{\"POT-Creation-Date\":null}'"
+    ],
     "lint": "vendor/bin/phpcs . -s"
   },
   "scripts-descriptions": {
     "fix": "Automatically fix coding standards issues where possible.",
+    "i18n": "Generate a .pot file for translation.",
     "lint": "Check files against coding standards."
   },
   "config": {

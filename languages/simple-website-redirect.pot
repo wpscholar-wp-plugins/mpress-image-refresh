@@ -1,0 +1,68 @@
+# Copyright (C) 2024 Micah Wood
+# This file is distributed under the GPL V2 or later.
+msgid ""
+msgstr ""
+"Project-Id-Version: Image Refresh 2.3\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/mpress-image-refresh\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.11.0\n"
+"X-Domain: mpress-image-refresh\n"
+
+#. Plugin Name of the plugin
+#: mpress-image-refresh.php
+msgid "Image Refresh"
+msgstr ""
+
+#. Plugin URI of the plugin
+#: mpress-image-refresh.php
+msgid "http://wpscholar.com/wordpress-plugins/mpress-image-refresh/"
+msgstr ""
+
+#. Description of the plugin
+#: mpress-image-refresh.php
+msgid "Show a fresh image on every page load."
+msgstr ""
+
+#. Author of the plugin
+#: mpress-image-refresh.php
+msgid "Micah Wood"
+msgstr ""
+
+#. Author URI of the plugin
+#: mpress-image-refresh.php
+msgid "https://wpscholar.com"
+msgstr ""
+
+#: mpress-image-refresh.php:71
+msgid "Image Refresh Link URL"
+msgstr ""
+
+#. translators: %d is the post ID
+#: mpress-image-refresh.php:204
+msgid "Sorry, post ID \"%d\" is invalid. Please check your shortcode implementation."
+msgstr ""
+
+#: mpress-image-refresh.php:239
+msgid "Sorry, it looks like you forgot to attach an image to the post or have excluded all possible attachment IDs."
+msgstr ""
+
+#. translators: %s is the shortcode implementation
+#: mpress-image-refresh.php:241
+msgid "Please check your %s shortcode implementation."
+msgstr ""
+
+#. translators: %d is the attachment ID
+#: mpress-image-refresh.php:265
+msgid "Sorry, attachment ID \"%d\" is invalid. Please check your shortcode implementation."
+msgstr ""
+
+#. translators: %1$s is the invalid image size, %2$s is the default image size being used.
+#: mpress-image-refresh.php:296
+msgid "Sorry, image size \"%1$s\" is invalid. Defaulting to \"%2$s\" image size. Please check your shortcode implementation."
+msgstr ""

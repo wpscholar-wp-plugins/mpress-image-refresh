@@ -4,8 +4,8 @@ Donate link: https://www.paypal.me/wpscholar
 Tags: random image, image reload, image refresh, image rotation, different image, attachments, image with caption
 Requires at least: 4.5
 Requires PHP: 5.4
-Tested up to: 6.5
-Stable tag: 2.3
+Tested up to: 6.7
+Stable tag: 2.3.1
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -87,6 +87,10 @@ Keep in mind that any of these attributes can be combined as needed.  Example: `
 * `mpress_image_refresh-image_html` -- Filter removed in version 2.0. Use `mpress_image_refresh-markup` filter instead.
 
 == Changelog ==
+
+= 2.3.1 = 
+
+* General maintenance
 
 = 2.3 =
 
