@@ -1,7 +1,7 @@
 === Image Refresh ===
 Contributors: wpscholar
 Donate link: https://www.paypal.me/wpscholar
-Tags: random image, image reload, image refresh, image rotation, different image, attachments, image with caption
+Tags: random image, image reload, image refresh, image rotation, different image
 Requires at least: 4.5
 Requires PHP: 5.4
 Tested up to: 6.7
